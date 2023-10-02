@@ -1,4 +1,4 @@
-package com.damai.deloitteweather
+package com.damai.deloitteweather.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 
