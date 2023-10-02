@@ -1,7 +1,6 @@
 package com.damai.deloitteweather.ui.main
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.damai.base.BaseViewModel
@@ -11,6 +10,9 @@ import com.damai.base.networks.Resource
 import com.damai.domain.models.CityModel
 import com.damai.domain.models.CurrentWeatherRequestModel
 import com.damai.domain.usecases.GetCurrentWeatherUseCase
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 /**
@@ -35,26 +37,30 @@ class MainViewModel(
     }
 
     fun getCurrentWeatherCities() {
-        _savedCityListLiveData.value?.forEach { cityModel ->
-            viewModelScope.launch(dispatcher.io()) {
-                val requestModel = CurrentWeatherRequestModel(
-                    id = cityModel.id,
-                    latitude = cityModel.latitude,
-                    longitude = cityModel.longitude
-                )
-                getCurrentWeatherUseCase(requestModel).collect { resource ->
-                    when (resource) {
-                        is Resource.Success -> {
-                            resource.model?.cityModel?.let { response ->
-                                Log.d("zxczxc", "name = ${response.name}, lat = ${response.latitude}, lon = ${response.longitude}, temperature = ${response.temperature}")
-                            }
-                        }
-                        is Resource.Error -> {
+        viewModelScope.launch(dispatcher.io()) {
+            val newCurrentWeatherList = requireNotNull(_savedCityListLiveData.value).map { cityModel ->
+                async {
+                    val requestModel = CurrentWeatherRequestModel(
+                        id = cityModel.id,
+                        latitude = cityModel.latitude,
+                        longitude = cityModel.longitude
+                    )
+                    getCurrentWeatherUseCase(requestModel).first()
+                }
+            }.awaitAll()
 
-                        }
+            val newSavedCityList = mutableListOf<CityModel>()
+            newCurrentWeatherList.forEach { resource ->
+                when (resource) {
+                    is Resource.Success -> {
+                        resource.model?.cityModel?.let(newSavedCityList::add)
+                    }
+                    is Resource.Error -> {
+
                     }
                 }
             }
+            newSavedCityList.toList().let(_savedCityListLiveData::postValue)
         }
     }
 
