@@ -60,8 +60,8 @@ class MainViewModel(
                             it.id == resource.model?.id
                         }
                         if (index > -1) {
-                            currentList.removeAt(index)
                             resource.model?.cityModel?.let {
+                                currentList.removeAt(index)
                                 currentList.add(index, it)
                             }
                         }
