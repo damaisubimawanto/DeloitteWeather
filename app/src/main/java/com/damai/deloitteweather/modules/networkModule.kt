@@ -4,6 +4,7 @@ import com.damai.base.coroutines.DispatcherProvider
 import com.damai.base.coroutines.DispatcherProviderImpl
 import com.damai.base.utils.Constants.BASE_URL
 import com.damai.base.utils.Constants.TIMEOUT
+import com.damai.data.apiservices.HomeService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -42,5 +43,9 @@ val networkModule = module {
 
     factory<DispatcherProvider> {
         DispatcherProviderImpl()
+    }
+
+    factory {
+        get<Retrofit>().create(HomeService::class.java)
     }
 }

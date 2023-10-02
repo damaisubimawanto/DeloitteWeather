@@ -1,5 +1,6 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.data.mappers.CurrentWeatherResponseToCurrentWeatherModelMapper
 import org.koin.dsl.module
 
 /**
@@ -7,5 +8,7 @@ import org.koin.dsl.module
  */
 
 val mapperModule = module {
-
+    factory {
+        CurrentWeatherResponseToCurrentWeatherModelMapper()
+    }
 }

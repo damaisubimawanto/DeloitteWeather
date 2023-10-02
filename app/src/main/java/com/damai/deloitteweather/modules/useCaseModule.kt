@@ -1,5 +1,6 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.domain.usecases.GetCurrentWeatherUseCase
 import org.koin.dsl.module
 
 /**
@@ -7,5 +8,9 @@ import org.koin.dsl.module
  */
 
 val useCaseModule = module {
-
+    single {
+        GetCurrentWeatherUseCase(
+            homeRepository = get()
+        )
+    }
 }

@@ -39,4 +39,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             savedCityAdapter.submitList(it)
         }
     }
+
+    override fun ActivityMainBinding.onPreparationFinished() {
+        viewModel.getCurrentWeatherCities()
+    }
 }

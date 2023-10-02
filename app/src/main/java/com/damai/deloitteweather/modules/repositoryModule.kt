@@ -1,5 +1,7 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.data.repos.HomeRepositoryImpl
+import com.damai.domain.repositories.HomeRepository
 import org.koin.dsl.module
 
 /**
@@ -7,5 +9,11 @@ import org.koin.dsl.module
  */
 
 val repositoryModule = module {
-
+    single<HomeRepository> {
+        HomeRepositoryImpl(
+            homeService = get(),
+            dispatcher = get(),
+            currentWeatherMapper = get()
+        )
+    }
 }

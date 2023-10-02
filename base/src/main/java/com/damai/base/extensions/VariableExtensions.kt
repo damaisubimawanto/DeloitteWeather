@@ -7,3 +7,5 @@ package com.damai.base.extensions
 fun Int?.orZero() = this ?: 0
 
 fun Boolean?.orFalse() = this ?: false
+
+fun Double?.orZero() = this ?: 0.0

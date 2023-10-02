@@ -10,4 +10,9 @@ object Constants {
 
     const val SUCCESS_CODE = 200
     const val GLIDE_CROSS_FADE = 300   // milliseconds
+
+    const val API_VERSION_1 = "1.0"
+    const val API_VERSION_2_POINT_5 = "2.5"
+    const val API_KEY = "640a41f85270f8bd9953cf1ec2651147"
+    const val API_METRIC_UNITS = "metric"
 }
