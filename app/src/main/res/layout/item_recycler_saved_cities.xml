@@ -3,6 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.damai.base.bindingadapters.ViewBindingAdapter" />
+
+        <variable
+            name="model"
+            type="com.damai.domain.models.CityModel" />
+
+        <variable
+            name="isTopLineVisible"
+            type="Boolean" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,16 +28,19 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/dimen_1"
             android:background="@color/light_grey"
+            android:visibility="@{isTopLineVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/dimen_8"
-            android:paddingTop="@dimen/dimen_8"
+            android:paddingBottom="@dimen/dimen_14"
+            android:paddingTop="@dimen/dimen_14"
+            android:text="@{model.name}"
             android:textColor="@color/grey_bg"
             android:textSize="@dimen/font_14"
             app:layout_constraintEnd_toStartOf="@+id/ivWeatherIcon"
@@ -33,9 +52,20 @@
             android:id="@+id/ivWeatherIcon"
             android:layout_width="@dimen/dimen_24"
             android:layout_height="@dimen/dimen_24"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spaceBetweenWeatherAndIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:weatherTypeIcon="@{model.weatherType}"
+            app:tint="@color/light_grey"
+            tools:src="@drawable/ic_cloud_24px" />
+
+        <Space
+            android:id="@+id/spaceBetweenWeatherAndIcon"
+            android:layout_width="@dimen/dimen_16"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@+id/tvTemperature"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tvTemperature" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTemperature"
@@ -46,7 +76,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="30C" />
+            app:temperature="@{model.temperature}"
+            tools:text="30\u2103" />
 
         <View
             android:id="@+id/viewSeparatorBottom"

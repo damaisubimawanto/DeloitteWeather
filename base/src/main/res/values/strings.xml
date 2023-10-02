@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="temperature_in_celcius" formatted="false">%d\u2103</string>
+</resources>

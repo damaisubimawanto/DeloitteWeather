@@ -1,5 +1,7 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.base.coroutines.DispatcherProvider
+import com.damai.base.coroutines.DispatcherProviderImpl
 import com.damai.base.utils.Constants.BASE_URL
 import com.damai.base.utils.Constants.TIMEOUT
 import com.google.gson.GsonBuilder
@@ -36,5 +38,9 @@ val networkModule = module {
             .addConverterFactory(GsonConverterFactory.create(get()))
             .client(get())
             .build()
+    }
+
+    factory<DispatcherProvider> {
+        DispatcherProviderImpl()
     }
 }

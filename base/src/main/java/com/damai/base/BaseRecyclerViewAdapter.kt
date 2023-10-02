@@ -12,7 +12,10 @@ abstract class BaseRecyclerViewAdapter<VB: ViewDataBinding, DATA> constructor(
 ) : RecyclerView.Adapter<BaseViewHolder<VB, DATA>>() {
 
     override fun onBindViewHolder(holder: BaseViewHolder<VB, DATA>, position: Int) {
-        holder.bind(data = data[position])
+        holder.bind(
+            data = data[position],
+            position = position
+        )
     }
 
     override fun getItemCount(): Int = data.size

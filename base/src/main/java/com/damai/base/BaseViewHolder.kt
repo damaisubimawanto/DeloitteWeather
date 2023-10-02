@@ -10,5 +10,5 @@ abstract class BaseViewHolder<VB: ViewDataBinding, DATA> constructor(
     protected val binding: VB
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    abstract fun bind(data: DATA)
+    abstract fun bind(data: DATA, position: Int)
 }
