@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAddNewCityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dimen_8"
+            android:text="@string/title_add_new_city"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_36"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewSeparatorTop"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/light_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddNewCityText" />
+
+        <Space
+            android:id="@+id/spaceTopSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparatorTop" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etSearchCity"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_36"
+            android:background="@drawable/shape_bg_search_rounded"
+            android:drawablePadding="@dimen/dimen_8"
+            android:drawableStart="@drawable/ic_search_24px"
+            android:paddingHorizontal="@dimen/dimen_8"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightPadding"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toBottomOf="@+id/spaceTopSearch"
+            tools:text="Bekasi" />
+
+        <Space
+            android:id="@+id/spaceBottomSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etSearchCity" />
+
+        <View
+            android:id="@+id/viewSeparatorBottom"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/light_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spaceBottomSearch" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCities"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dimen_8"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparatorBottom"
+            tools:listitem="@layout/item_recycler_cities" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeftPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/dimen_8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRightPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/dimen_8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

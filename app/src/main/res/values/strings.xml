@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Deloitte Weather</string>
+    <string name="title_add_new_city">Add City</string>
+    <string name="weather_text">Weather</string>
 </resources>

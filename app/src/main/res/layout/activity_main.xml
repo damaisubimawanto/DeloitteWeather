@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rlAddCityButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:paddingBottom="@dimen/dimen_8"
+            android:paddingEnd="@dimen/dimen_16"
+            android:paddingStart="@dimen/dimen_16"
+            android:paddingTop="@dimen/dimen_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/dimen_36"
+                android:layout_height="@dimen/dimen_36"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_add_24px"
+                app:tint="@color/black" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWeatherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dimen_8"
+            android:text="@string/weather_text"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_36"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toBottomOf="@+id/rlAddCityButton" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSavedCities"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightPadding"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeatherText"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_recycler_saved_cities" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeftPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/dimen_16" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRightPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/dimen_16" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
