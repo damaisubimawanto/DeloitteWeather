@@ -49,18 +49,27 @@ class MainViewModel(
                 }
             }.awaitAll()
 
-            val newSavedCityList = mutableListOf<CityModel>()
+            var currentList = _savedCityListLiveData.value?.toMutableList()
+            if (currentList == null) {
+                currentList = mutableListOf()
+            }
             newCurrentWeatherList.forEach { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        resource.model?.cityModel?.let(newSavedCityList::add)
+                        val index = currentList.indexOfFirst {
+                            it.id == resource.model?.id
+                        }
+                        if (index > -1) {
+                            currentList.removeAt(index)
+                            resource.model?.cityModel?.let {
+                                currentList.add(index, it)
+                            }
+                        }
                     }
-                    is Resource.Error -> {
-
-                    }
+                    else -> Unit
                 }
             }
-            newSavedCityList.toList().let(_savedCityListLiveData::postValue)
+            currentList.toList().let(_savedCityListLiveData::postValue)
         }
     }
 
