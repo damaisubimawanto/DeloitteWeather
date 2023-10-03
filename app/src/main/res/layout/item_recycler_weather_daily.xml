@@ -94,7 +94,7 @@
             android:id="@+id/ivWeatherIcon"
             android:layout_width="@dimen/dimen_24"
             android:layout_height="@dimen/dimen_24"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             app:tint="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/spaceBetweenWeatherMinAndIcon"

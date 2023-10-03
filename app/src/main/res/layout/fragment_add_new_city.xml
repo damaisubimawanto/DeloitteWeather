@@ -12,6 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dimen_8"
+            android:paddingTop="@dimen/dimen_24"
             android:text="@string/title_add_new_city"
             android:textColor="@color/black"
             android:textSize="@dimen/font_36"
