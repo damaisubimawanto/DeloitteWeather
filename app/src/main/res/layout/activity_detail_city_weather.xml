@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_arrow_back_24px">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_24"
+                android:textStyle="bold"
+                tools:text="Jakarta" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svMainContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Space
+                    android:id="@+id/spaceTopWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivWeatherIcon"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"
+                    android:scaleType="centerInside"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvTemperature"
+                    app:layout_constraintEnd_toStartOf="@+id/tvTemperature"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvTemperature"
+                    app:tint="@color/light_grey"
+                    tools:src="@drawable/ic_cloud_24px" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/dimen_8"
+                    android:textSize="@dimen/font_24"
+                    android:textColor="@color/grey_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivWeatherIcon"
+                    app:layout_constraintTop_toBottomOf="@+id/spaceTopWeather"
+                    tools:text="30\u2103" />
+
+                <Space
+                    android:id="@+id/spaceBottomWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTemperature" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHourlyText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:paddingHorizontal="@dimen/dimen_16"
+                    android:paddingVertical="@dimen/dimen_6"
+                    android:text="@string/hourly_text"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spaceBottomWeather" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvWeatherHourly"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dimen_40"
+                    android:paddingTop="@dimen/dimen_16"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHourlyText"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/item_recycler_weather_hourly" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvThisWeekText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/light_grey"
+                    android:paddingHorizontal="@dimen/dimen_16"
+                    android:paddingVertical="@dimen/dimen_6"
+                    android:text="@string/this_week_text"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_14"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rvWeatherHourly" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvWeatherDaily"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/dimen_16"
+                    android:paddingVertical="@dimen/dimen_8"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvThisWeekText"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_recycler_weather_daily" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

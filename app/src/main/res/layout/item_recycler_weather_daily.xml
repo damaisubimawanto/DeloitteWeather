@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWeatherDayName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivWeatherIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Wednesday" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWeatherTemperatureMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="33\u2103" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMaxText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/max_text"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_10"
+            app:layout_constraintStart_toStartOf="@+id/tvWeatherTemperatureMax"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeatherTemperatureMax" />
+
+        <Space
+            android:id="@+id/spaceBetweenWeatherMaxAndMin"
+            android:layout_width="@dimen/dimen_8"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/tvWeatherTemperatureMax"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWeatherTemperatureMin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintEnd_toStartOf="@+id/spaceBetweenWeatherMaxAndMin"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="28\u2103" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvMinText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min_text"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font_10"
+            app:layout_constraintStart_toStartOf="@+id/tvWeatherTemperatureMin"
+            app:layout_constraintTop_toBottomOf="@+id/tvWeatherTemperatureMin" />
+
+        <Space
+            android:id="@+id/spaceBetweenWeatherMinAndIcon"
+            android:layout_width="@dimen/dimen_16"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/tvWeatherTemperatureMin"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivWeatherIcon"
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_24"
+            android:scaleType="centerInside"
+            app:tint="@color/light_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/spaceBetweenWeatherMinAndIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_cloud_24px" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
