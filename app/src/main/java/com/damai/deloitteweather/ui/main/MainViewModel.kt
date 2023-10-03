@@ -33,12 +33,11 @@ class MainViewModel(
     val emptySavedCityLiveData = _emptySavedCityLiveData.asLiveData()
     //endregion `Live Data`
 
-    /*init {
-        generateDummySavedCities()
-    }*/
-
     fun getCurrentWeatherCities() {
-        if (_savedCityListLiveData.value.isNullOrEmpty()) return
+        if (_savedCityListLiveData.value.isNullOrEmpty()) {
+            _emptySavedCityLiveData.postValue(true)
+            return
+        }
 
         viewModelScope.launch(dispatcher.io()) {
             val newCurrentWeatherList = requireNotNull(_savedCityListLiveData.value).map { cityModel ->
@@ -69,6 +68,7 @@ class MainViewModel(
                 }
             }
             currentList.toList().let(_savedCityListLiveData::postValue)
+            _emptySavedCityLiveData.postValue(false)
         }
     }
 
@@ -80,58 +80,7 @@ class MainViewModel(
         if (existedIndex == -1) {
             currentList.add(cityModel)
             currentList.toList().let(_savedCityListLiveData::postValue)
+            _emptySavedCityLiveData.value = false
         }
     }
-
-    /*private fun generateDummySavedCities() {
-        val savedCity1 = CityModel(
-            id = 1,
-            name = "Bekasi",
-            temperature = 12,
-            weatherType = "Clear",
-            latitude = -6.241586,
-            longitude = 106.992416
-        )
-        val savedCity2 = CityModel(
-            id = 2,
-            name = "Jakarta",
-            temperature = 12,
-            weatherType = null,
-            latitude = -6.200000,
-            longitude = 106.816666
-        )
-        val savedCity3 = CityModel(
-            id = 3,
-            name = "Batam",
-            temperature = 12,
-            weatherType = null,
-            latitude = 1.045626,
-            longitude = 104.030457
-        )
-        val savedCity4 = CityModel(
-            id = 4,
-            name = "Bogor",
-            temperature = 12,
-            weatherType = null,
-            latitude = -6.595038,
-            longitude = 106.816635
-        )
-        val savedCity5 = CityModel(
-            id = 5,
-            name = "Bandung",
-            temperature = 12,
-            weatherType = null,
-            latitude = -6.914864,
-            longitude = 107.608238
-        )
-
-        val dummyList = listOf(
-            savedCity1,
-            savedCity2,
-            savedCity3,
-            savedCity4,
-            savedCity5
-        )
-        dummyList.let(_savedCityListLiveData::setValue)
-    }*/
 }
