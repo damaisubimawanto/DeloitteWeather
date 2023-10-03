@@ -8,8 +8,8 @@ import com.damai.base.BaseModel
 data class ForecastModel(
     val timestamp: Long,
     val temperature: Int,
-    val temperatureMin: Double,
-    val temperatureMax: Double,
+    val temperatureMin: Int,
+    val temperatureMax: Int,
     val weatherType: String?,
     val dayName: String
 )

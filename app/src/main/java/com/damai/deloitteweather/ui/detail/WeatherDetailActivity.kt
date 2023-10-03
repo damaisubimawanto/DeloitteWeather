@@ -6,6 +6,7 @@ import com.damai.base.extensions.showShortToast
 import com.damai.base.utils.EventObserver
 import com.damai.deloitteweather.R
 import com.damai.deloitteweather.databinding.ActivityDetailCityWeatherBinding
+import com.damai.deloitteweather.ui.detail.adapter.WeatherDailyAdapter
 import com.damai.deloitteweather.ui.detail.adapter.WeatherHourlyAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -16,6 +17,7 @@ class WeatherDetailActivity : BaseActivity<ActivityDetailCityWeatherBinding, Wea
 
     //region Variables
     private lateinit var weatherHourlyAdapter: WeatherHourlyAdapter
+    private lateinit var weatherDailyAdapter: WeatherDailyAdapter
     //endregion `Variables`
 
     override val layoutResource: Int = R.layout.activity_detail_city_weather
@@ -31,10 +33,17 @@ class WeatherDetailActivity : BaseActivity<ActivityDetailCityWeatherBinding, Wea
             weatherHourlyAdapter = WeatherHourlyAdapter()
             adapter = weatherHourlyAdapter
         }
+
+        with(rvWeatherDaily) {
+            weatherDailyAdapter = WeatherDailyAdapter()
+            adapter = weatherDailyAdapter
+        }
     }
 
     override fun ActivityDetailCityWeatherBinding.setupListeners() {
-        // TODO("Not yet implemented")
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
     }
 
     override fun ActivityDetailCityWeatherBinding.setupObservers() {
@@ -43,7 +52,7 @@ class WeatherDetailActivity : BaseActivity<ActivityDetailCityWeatherBinding, Wea
         }
 
         observe(viewModel.weatherDailyListLiveData) {
-
+            weatherDailyAdapter.setNewData(newData = it)
         }
 
         observe(viewModel.errorMessageLiveData, EventObserver {

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.damai.base.BaseViewModel
 import com.damai.base.coroutines.DispatcherProvider
 import com.damai.base.extensions.asLiveData
+import com.damai.base.extensions.orZero
 import com.damai.base.networks.Resource
 import com.damai.base.utils.Constants.ARGS_CITY_NAME
 import com.damai.base.utils.Constants.ARGS_LATITUDE
@@ -45,14 +46,14 @@ class WeatherDetailViewModel(
     //endregion `Live Data`
 
     //region Private Functions
-    private fun groupingHourlyForecasts(list: List<ForecastModel>) {
-        list.let(_weatherHourlyListLiveData::postValue)
-    }
-
     private fun groupingDailyForecasts(list: List<ForecastModel>) {
         val dailyForecastList = mutableListOf<ForecastModel>()
+        var currentDayName = ""
         list.forEach { forecastModel ->
-
+            if (forecastModel.dayName != currentDayName) {
+                currentDayName = forecastModel.dayName
+                forecastModel.let(dailyForecastList::add)
+            }
         }
         dailyForecastList.toList().let(_weatherDailyListLiveData::postValue)
     }
@@ -75,14 +76,14 @@ class WeatherDetailViewModel(
     fun getForecastWeather() {
         viewModelScope.launch(dispatcher.io()) {
             val requestModel = CurrentWeatherRequestModel(
-                latitude = 0.0,
-                longitude = 0.0
+                latitude = _cityModelLiveData.value?.latitude.orZero(),
+                longitude = _cityModelLiveData.value?.longitude.orZero()
             )
             getForecastWeatherUseCase(requestModel).collect { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         resource.model?.list?.let {
-                            groupingHourlyForecasts(list = it)
+                            it.let(_weatherHourlyListLiveData::postValue)
                             groupingDailyForecasts(list = it)
                         } ?: run {
                             Event(

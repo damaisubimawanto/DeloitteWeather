@@ -3,6 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.damai.base.bindingadapters.ViewBindingAdapter" />
+
+        <variable
+            name="model"
+            type="com.damai.domain.models.ForecastModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,6 +24,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:singleLine="true"
+            android:text="@{model.dayName}"
             android:textColor="@color/black"
             android:textSize="@dimen/font_14"
             android:textStyle="bold"
@@ -31,6 +42,7 @@
             android:textSize="@dimen/font_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:temperature="@{model.temperatureMax}"
             tools:text="33\u2103" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -58,6 +70,7 @@
             android:textSize="@dimen/font_14"
             app:layout_constraintEnd_toStartOf="@+id/spaceBetweenWeatherMaxAndMin"
             app:layout_constraintTop_toTopOf="parent"
+            app:temperature="@{model.temperatureMin}"
             tools:text="28\u2103" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -86,6 +99,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/spaceBetweenWeatherMinAndIcon"
             app:layout_constraintTop_toTopOf="parent"
+            app:weatherTypeIcon="@{model.weatherType}"
             tools:src="@drawable/ic_cloud_24px" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,7 +42,7 @@ object ViewBindingAdapter {
         val date = SimpleDateUtil.getDateFromUnixTimestamp(unixTimestamp = unixTimestamp)
         val hourText = SimpleDateUtil.parseDateToString(
             givenDate = date,
-            outputFormat = SimpleDateUtil.DateFormat.HH_MM
+            outputFormat = SimpleDateUtil.DateFormat.KK_MM
         )
         view.text = hourText
     }

@@ -18,8 +18,8 @@ class ForecastResponseToForecastModelMapper : BaseMapper<ForecastResponse, Forec
         return ForecastModel(
             timestamp = value.dt.orZero(),
             temperature = value.main?.temp.orZero().roundToInt(),
-            temperatureMin = value.main?.tempMin.orZero(),
-            temperatureMax = value.main?.tempMax.orZero(),
+            temperatureMin = value.main?.tempMin.orZero().roundToInt(),
+            temperatureMax = value.main?.tempMax.orZero().roundToInt(),
             weatherType = value.weather?.firstOrNull()?.main,
             dayName = SimpleDateUtil.getDayNameFromUnixTimestamp(unixTimestamp = value.dt.orZero())
         )
