@@ -4,6 +4,7 @@ import com.damai.base.utils.Constants.API_VERSION_1
 import com.damai.base.utils.Constants.API_VERSION_2_POINT_5
 import com.damai.data.responses.CurrentWeatherResponse
 import com.damai.data.responses.GeoLocationCityResponse
+import com.damai.data.responses.WeatherForecastResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -26,4 +27,12 @@ interface HomeService {
         @Query("q") query: String,
         @Query("limit") limit: Int
     ): List<GeoLocationCityResponse>
+
+    @GET("/data/${API_VERSION_2_POINT_5}/forecast")
+    suspend fun getForecastWeather(
+        @Query("appid") appId: String,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("units") units: String
+    ): WeatherForecastResponse
 }
