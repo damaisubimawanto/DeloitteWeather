@@ -5,6 +5,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import com.damai.base.R
 import com.damai.base.extensions.loadImageWithCenterCrop
+import com.damai.base.utils.SimpleDateUtil
 
 /**
  * Created by damai007 on 02/October/2023
@@ -33,5 +34,16 @@ object ViewBindingAdapter {
                 else -> R.drawable.ic_cloud_24px
             }
         )
+    }
+
+    @JvmStatic
+    @BindingAdapter("hourTime")
+    fun bindTime(view: AppCompatTextView, unixTimestamp: Long) {
+        val date = SimpleDateUtil.getDateFromUnixTimestamp(unixTimestamp = unixTimestamp)
+        val hourText = SimpleDateUtil.parseDateToString(
+            givenDate = date,
+            outputFormat = SimpleDateUtil.DateFormat.HH_MM
+        )
+        view.text = hourText
     }
 }

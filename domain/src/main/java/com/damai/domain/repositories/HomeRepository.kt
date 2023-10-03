@@ -1,6 +1,7 @@
 package com.damai.domain.repositories
 
 import com.damai.base.networks.Resource
+import com.damai.domain.models.WeatherForecastModel
 import com.damai.domain.models.CurrentWeatherModel
 import com.damai.domain.models.CurrentWeatherRequestModel
 import com.damai.domain.models.GeoLocationCityModel
@@ -21,4 +22,9 @@ interface HomeRepository {
     fun getGeoLocationCity(
         cityName: String
     ): Flow<Resource<GeoLocationCityModel>>
+
+    @Throws(Exception::class)
+    fun getForecastWeather(
+        requestModel: CurrentWeatherRequestModel
+    ): Flow<Resource<WeatherForecastModel>>
 }

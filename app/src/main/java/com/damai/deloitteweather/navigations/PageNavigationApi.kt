@@ -1,5 +1,8 @@
 package com.damai.deloitteweather.navigations
 
+import android.content.Context
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.FragmentActivity
 
 /**
@@ -10,5 +13,14 @@ interface PageNavigationApi {
     fun openAddNewCityBottomSheetDialog(
         fragmentActivity: FragmentActivity,
         tag: String
+    )
+
+    fun navigateToWeatherDetailActivity(
+        context: Context,
+        launcher: ActivityResultLauncher<Intent>,
+        cityName: String,
+        latitude: Double,
+        longitude: Double,
+        temperature: Int
     )
 }

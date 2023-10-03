@@ -2,6 +2,16 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="com.damai.base.bindingadapters.ViewBindingAdapter" />
+
+        <variable
+            name="model"
+            type="com.damai.domain.models.ForecastModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,6 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:hourTime="@{model.timestamp}"
             tools:text="13:00" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -28,6 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvWeatherTime"
             app:tint="@color/light_grey"
+            app:weatherTypeIcon="@{model.weatherType}"
             tools:src="@drawable/ic_cloud_24px" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -40,6 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivWeatherIcon"
+            app:temperature="@{model.temperature}"
             tools:text="30\u2103" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

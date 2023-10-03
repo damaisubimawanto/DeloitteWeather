@@ -1,6 +1,7 @@
 package com.damai.deloitteweather.modules
 
 import com.damai.data.mappers.CurrentWeatherResponseToCurrentWeatherModelMapper
+import com.damai.data.mappers.ForecastResponseToForecastModelMapper
 import com.damai.data.mappers.GeoLocationCityResponseToGeoLocationCityModelMapper
 import org.koin.dsl.module
 
@@ -14,5 +15,8 @@ val mapperModule = module {
     }
     factory {
         GeoLocationCityResponseToGeoLocationCityModelMapper()
+    }
+    factory {
+        ForecastResponseToForecastModelMapper()
     }
 }

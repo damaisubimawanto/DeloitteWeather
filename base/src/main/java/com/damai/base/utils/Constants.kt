@@ -18,5 +18,10 @@ object Constants {
     const val API_KEY = "640a41f85270f8bd9953cf1ec2651147"
     const val API_METRIC_UNITS = "metric"
 
+    const val ARGS_CITY_NAME = "argsCityName"
+    const val ARGS_LATITUDE = "argsLatitude"
+    const val ARGS_LONGITUDE = "argsLongitude"
+    const val ARGS_TEMPERATURE = "argsTemperature"
+
     const val TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG = "AddNewCityBottomSheetDialog"
 }

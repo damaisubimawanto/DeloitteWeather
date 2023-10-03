@@ -14,7 +14,8 @@ val repositoryModule = module {
             homeService = get(),
             dispatcher = get(),
             currentWeatherMapper = get(),
-            geoLocationCityMapper = get()
+            geoLocationCityMapper = get(),
+            forecastMapper = get()
         )
     }
 }

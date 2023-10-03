@@ -9,7 +9,9 @@ import com.damai.base.utils.Constants.QUERY_LIMIT
 import com.damai.base.utils.Constants.SUCCESS_CODE
 import com.damai.data.apiservices.HomeService
 import com.damai.data.mappers.CurrentWeatherResponseToCurrentWeatherModelMapper
+import com.damai.data.mappers.ForecastResponseToForecastModelMapper
 import com.damai.data.mappers.GeoLocationCityResponseToGeoLocationCityModelMapper
+import com.damai.domain.models.WeatherForecastModel
 import com.damai.domain.models.CurrentWeatherModel
 import com.damai.domain.models.CurrentWeatherRequestModel
 import com.damai.domain.models.GeoLocationCityModel
@@ -23,7 +25,8 @@ class HomeRepositoryImpl(
     private val homeService: HomeService,
     private val dispatcher: DispatcherProvider,
     private val currentWeatherMapper: CurrentWeatherResponseToCurrentWeatherModelMapper,
-    private val geoLocationCityMapper: GeoLocationCityResponseToGeoLocationCityModelMapper
+    private val geoLocationCityMapper: GeoLocationCityResponseToGeoLocationCityModelMapper,
+    private val forecastMapper: ForecastResponseToForecastModelMapper
 ) : HomeRepository {
 
     override fun getCurrentWeather(
@@ -59,6 +62,28 @@ class HomeRepositoryImpl(
                         it.status = SUCCESS_CODE
                     }
                 } ?: geoLocationCityMapper.generateEmptyModel()
+            }
+        }.asFlow()
+    }
+
+    override fun getForecastWeather(requestModel: CurrentWeatherRequestModel): Flow<Resource<WeatherForecastModel>> {
+        return object : NetworkResource<WeatherForecastModel>(
+            dispatcherProvider = dispatcher
+        ) {
+            override suspend fun remoteFetch(): WeatherForecastModel {
+                val response = homeService.getForecastWeather(
+                    appId = API_KEY,
+                    latitude = requestModel.latitude,
+                    longitude = requestModel.longitude,
+                    units = API_METRIC_UNITS
+                )
+                return response.list?.let { forecastResponseList ->
+                    WeatherForecastModel(
+                        list = forecastMapper.map(forecastResponseList)
+                    ).also {
+                        it.status = response.cod
+                    }
+                } ?: forecastMapper.generateEmptyWeatherForecastModel()
             }
         }.asFlow()
     }

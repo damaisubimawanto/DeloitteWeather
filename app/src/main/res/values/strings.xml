@@ -8,5 +8,6 @@
     <string name="min_text">min</string>
     
     <string name="empty_saved_city">Empty Saved City</string>
+    <string name="empty_forecast">Empty Forecast</string>
     <string name="error_select_city">Error on getting the city information</string>
 </resources>

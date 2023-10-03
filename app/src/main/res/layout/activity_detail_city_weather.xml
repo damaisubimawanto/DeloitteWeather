@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="vm"
+            type="com.damai.deloitteweather.ui.detail.WeatherDetailViewModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,6 +29,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{vm.cityModelLiveData.name}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/font_24"
                 android:textStyle="bold"
@@ -59,6 +68,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvTemperature"
                     app:tint="@color/light_grey"
+                    app:weatherTypeIcon="@{vm.cityModelLiveData.weatherType}"
                     tools:src="@drawable/ic_cloud_24px" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -71,6 +81,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/ivWeatherIcon"
                     app:layout_constraintTop_toBottomOf="@+id/spaceTopWeather"
+                    app:temperature="@{vm.cityModelLiveData.temperature}"
                     tools:text="30\u2103" />
 
                 <Space

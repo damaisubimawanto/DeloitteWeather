@@ -1,5 +1,6 @@
 package com.damai.deloitteweather.ui.main
 
+import androidx.activity.result.contract.ActivityResultContracts
 import com.damai.base.BaseActivity
 import com.damai.base.extensions.observe
 import com.damai.base.extensions.setCustomOnClickListener
@@ -17,6 +18,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private lateinit var savedCityAdapter: SavedCityAdapter
 
     private val pageNavigationApi: PageNavigationApi by inject()
+
+    private val activityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            /* Do nothing. */
+        }
     //endregion `Variables`
 
     override val layoutResource: Int = R.layout.activity_main
@@ -29,7 +35,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
         with(rvSavedCities) {
             savedCityAdapter = SavedCityAdapter { clickedItem ->
-                // TODO: Open detail page
+                pageNavigationApi.navigateToWeatherDetailActivity(
+                    context = context,
+                    launcher = activityLauncher,
+                    cityName = clickedItem.name.orEmpty(),
+                    latitude = clickedItem.latitude,
+                    longitude = clickedItem.longitude,
+                    temperature = clickedItem.temperature
+                )
             }
             adapter = savedCityAdapter
         }
