@@ -19,21 +19,18 @@ object ViewBindingAdapter {
     }
 
     @JvmStatic
+    @BindingAdapter("loadWeatherIcon")
+    fun bindLoadWeatherIcon(view: AppCompatImageView, url: String?) {
+        url?.let {
+            view.loadImageWithCenterCrop(url = it)
+        } ?: view.setImageResource(R.drawable.ic_cloud_24px)
+    }
+
+    @JvmStatic
     @BindingAdapter("temperature")
     fun bindTemperature(view: AppCompatTextView, temperature: Int) {
         val temperatureText = view.resources.getString(R.string.temperature_in_celcius, temperature)
         view.text = temperatureText
-    }
-
-    @JvmStatic
-    @BindingAdapter("weatherTypeIcon")
-    fun bindWeatherIcon(view: AppCompatImageView, weatherType: String?) {
-        view.setImageResource(
-            when (weatherType) {
-                "Clear" -> R.drawable.ic_clear_day_24px
-                else -> R.drawable.ic_cloud_24px
-            }
-        )
     }
 
     @JvmStatic

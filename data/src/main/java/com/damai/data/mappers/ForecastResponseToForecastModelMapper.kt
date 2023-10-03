@@ -3,6 +3,8 @@ package com.damai.data.mappers
 import com.damai.base.BaseMapper
 import com.damai.base.extensions.orZero
 import com.damai.base.utils.Constants.EMPTY_CODE
+import com.damai.base.utils.Constants.WEATHER_ICON_HEAD
+import com.damai.base.utils.Constants.WEATHER_ICON_TAIL_1X
 import com.damai.base.utils.SimpleDateUtil
 import com.damai.data.responses.ForecastResponse
 import com.damai.domain.models.ForecastModel
@@ -20,7 +22,9 @@ class ForecastResponseToForecastModelMapper : BaseMapper<ForecastResponse, Forec
             temperature = value.main?.temp.orZero().roundToInt(),
             temperatureMin = value.main?.tempMin.orZero().roundToInt(),
             temperatureMax = value.main?.tempMax.orZero().roundToInt(),
-            weatherType = value.weather?.firstOrNull()?.main,
+            weatherIconUrl = value.weather?.firstOrNull()?.icon?.let {
+                "${WEATHER_ICON_HEAD}$it${WEATHER_ICON_TAIL_1X}"
+            },
             dayName = SimpleDateUtil.getDayNameFromUnixTimestamp(unixTimestamp = value.dt.orZero())
         )
     }

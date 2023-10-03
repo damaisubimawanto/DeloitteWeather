@@ -5,6 +5,8 @@ import com.damai.base.BaseActivity
 import com.damai.base.extensions.observe
 import com.damai.base.extensions.setCustomOnClickListener
 import com.damai.base.utils.Constants.TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG
+import com.damai.base.utils.Constants.WEATHER_ICON_HEAD
+import com.damai.base.utils.Constants.WEATHER_ICON_TAIL_2X
 import com.damai.deloitteweather.R
 import com.damai.deloitteweather.databinding.ActivityMainBinding
 import com.damai.deloitteweather.navigations.PageNavigationApi
@@ -41,7 +43,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                     cityName = clickedItem.name.orEmpty(),
                     latitude = clickedItem.latitude,
                     longitude = clickedItem.longitude,
-                    temperature = clickedItem.temperature
+                    temperature = clickedItem.temperature,
+                    weatherIconUrl = "${WEATHER_ICON_HEAD}${clickedItem.weatherIcon}${WEATHER_ICON_TAIL_2X}"
                 )
             }
             adapter = savedCityAdapter

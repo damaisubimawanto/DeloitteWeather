@@ -13,6 +13,7 @@ import com.damai.base.utils.Constants.ARGS_CITY_NAME
 import com.damai.base.utils.Constants.ARGS_LATITUDE
 import com.damai.base.utils.Constants.ARGS_LONGITUDE
 import com.damai.base.utils.Constants.ARGS_TEMPERATURE
+import com.damai.base.utils.Constants.ARGS_WEATHER_ICON_URL
 import com.damai.base.utils.Event
 import com.damai.deloitteweather.R
 import com.damai.deloitteweather.application.MyApplication
@@ -66,8 +67,9 @@ class WeatherDetailViewModel(
                 latitude = intent.getDoubleExtra(ARGS_LATITUDE, 0.0),
                 longitude = intent.getDoubleExtra(ARGS_LONGITUDE, 0.0),
                 temperature = intent.getIntExtra(ARGS_TEMPERATURE, 0),
+                weatherIconUrl = intent.getStringExtra(ARGS_WEATHER_ICON_URL),
+                weatherIcon = null,
                 id = 0,
-                weatherType = null,
                 state = null
             ).let(_cityModelLiveData::setValue)
         }

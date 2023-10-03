@@ -8,6 +8,7 @@ import com.damai.base.utils.Constants.ARGS_CITY_NAME
 import com.damai.base.utils.Constants.ARGS_LATITUDE
 import com.damai.base.utils.Constants.ARGS_LONGITUDE
 import com.damai.base.utils.Constants.ARGS_TEMPERATURE
+import com.damai.base.utils.Constants.ARGS_WEATHER_ICON_URL
 import com.damai.deloitteweather.ui.addnewcity.AddNewCityBottomSheetDialog
 import com.damai.deloitteweather.ui.detail.WeatherDetailActivity
 
@@ -30,13 +31,15 @@ class PageNavigationApiImpl : PageNavigationApi {
         cityName: String,
         latitude: Double,
         longitude: Double,
-        temperature: Int
+        temperature: Int,
+        weatherIconUrl: String
     ) {
         Intent(context, WeatherDetailActivity::class.java).apply {
             putExtra(ARGS_CITY_NAME, cityName)
             putExtra(ARGS_LATITUDE, latitude)
             putExtra(ARGS_LONGITUDE, longitude)
             putExtra(ARGS_TEMPERATURE, temperature)
+            putExtra(ARGS_WEATHER_ICON_URL, weatherIconUrl)
         }.also {
             launcher.launch(it)
         }

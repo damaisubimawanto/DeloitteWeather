@@ -9,7 +9,8 @@ data class CityModel(
     val id: Int,
     val name: String?,
     var temperature: Int,
-    var weatherType: String?,
+    var weatherIcon: String?,
+    var weatherIconUrl: String?,
     val latitude: Double,
     val longitude: Double,
     val state: String?

@@ -21,6 +21,7 @@ interface PageNavigationApi {
         cityName: String,
         latitude: Double,
         longitude: Double,
-        temperature: Int
+        temperature: Int,
+        weatherIconUrl: String
     )
 }

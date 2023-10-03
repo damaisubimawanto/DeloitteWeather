@@ -10,7 +10,7 @@ data class ForecastModel(
     val temperature: Int,
     val temperatureMin: Int,
     val temperatureMax: Int,
-    val weatherType: String?,
+    val weatherIconUrl: String?,
     val dayName: String
 )
 

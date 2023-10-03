@@ -6,6 +6,9 @@ package com.damai.base.utils
 object Constants {
 
     const val BASE_URL = "https://api.openweathermap.org"
+    const val WEATHER_ICON_HEAD = "https://openweathermap.org/img/wn/"
+    const val WEATHER_ICON_TAIL_1X = ".png"
+    const val WEATHER_ICON_TAIL_2X = "@2x.png"
     const val TIMEOUT = 60L
     const val QUERY_LIMIT = 5
 
@@ -22,6 +25,7 @@ object Constants {
     const val ARGS_LATITUDE = "argsLatitude"
     const val ARGS_LONGITUDE = "argsLongitude"
     const val ARGS_TEMPERATURE = "argsTemperature"
+    const val ARGS_WEATHER_ICON_URL = "argsWeatherIconUrl"
 
     const val TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG = "AddNewCityBottomSheetDialog"
 }

@@ -21,7 +21,8 @@ class GeoLocationCityResponseToGeoLocationCityModelMapper : BaseMapper<GeoLocati
                 latitude = value.lat.orZero(),
                 longitude = value.lon.orZero(),
                 temperature = 0,
-                weatherType = null,
+                weatherIcon = null,
+                weatherIconUrl = null,
                 state = value.state
             )
         )
@@ -34,7 +35,8 @@ class GeoLocationCityResponseToGeoLocationCityModelMapper : BaseMapper<GeoLocati
             latitude = 0.0,
             longitude = 0.0,
             temperature = 0,
-            weatherType = null,
+            weatherIcon = null,
+            weatherIconUrl = null,
             state = null
         )
     ).also {

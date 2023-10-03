@@ -59,16 +59,15 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivWeatherIcon"
-                    android:layout_width="@dimen/dimen_36"
-                    android:layout_height="@dimen/dimen_36"
+                    android:layout_width="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_40"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="@+id/tvTemperature"
                     app:layout_constraintEnd_toStartOf="@+id/tvTemperature"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tvTemperature"
-                    app:tint="@color/light_grey"
-                    app:weatherTypeIcon="@{vm.cityModelLiveData.weatherType}"
+                    app:loadWeatherIcon="@{vm.cityModelLiveData.weatherIconUrl}"
                     tools:src="@drawable/ic_cloud_24px" />
 
                 <androidx.appcompat.widget.AppCompatTextView

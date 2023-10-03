@@ -2,6 +2,8 @@ package com.damai.data.mappers
 
 import com.damai.base.BaseMapper
 import com.damai.base.extensions.orZero
+import com.damai.base.utils.Constants.WEATHER_ICON_HEAD
+import com.damai.base.utils.Constants.WEATHER_ICON_TAIL_1X
 import com.damai.data.responses.CurrentWeatherResponse
 import com.damai.domain.models.CityModel
 import com.damai.domain.models.CurrentWeatherModel
@@ -18,7 +20,10 @@ class CurrentWeatherResponseToCurrentWeatherModelMapper : BaseMapper<CurrentWeat
                 id = value.id.orZero(),
                 name = value.name.orEmpty(),
                 temperature = value.main?.feelsLike.orZero().roundToInt(),
-                weatherType = value.weather?.firstOrNull()?.main,
+                weatherIcon = value.weather?.firstOrNull()?.icon,
+                weatherIconUrl = value.weather?.firstOrNull()?.icon?.let {
+                    "${WEATHER_ICON_HEAD}$it${WEATHER_ICON_TAIL_1X}"
+                },
                 latitude = value.coord?.lat.orZero(),
                 longitude = value.coord?.lon.orZero(),
                 state = null
