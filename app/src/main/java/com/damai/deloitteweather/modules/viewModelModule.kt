@@ -1,5 +1,6 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.deloitteweather.ui.addnewcity.AddNewCityViewModel
 import com.damai.deloitteweather.ui.main.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -14,6 +15,14 @@ val viewModelModule = module {
         MainViewModel(
             app = androidApplication(),
             dispatcher = get(),
+            getCurrentWeatherUseCase = get()
+        )
+    }
+    viewModel {
+        AddNewCityViewModel(
+            app = androidApplication(),
+            dispatcher = get(),
+            getGeoLocationCityUseCase = get(),
             getCurrentWeatherUseCase = get()
         )
     }

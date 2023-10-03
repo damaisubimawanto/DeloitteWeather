@@ -1,5 +1,7 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.deloitteweather.navigations.PageNavigationApi
+import com.damai.deloitteweather.navigations.PageNavigationApiImpl
 import org.koin.dsl.module
 
 /**
@@ -7,5 +9,7 @@ import org.koin.dsl.module
  */
 
 val pageNavigationModule = module {
-
+    factory<PageNavigationApi> {
+        PageNavigationApiImpl()
+    }
 }

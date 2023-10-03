@@ -3,15 +3,20 @@ package com.damai.deloitteweather.ui.main
 import com.damai.base.BaseActivity
 import com.damai.base.extensions.observe
 import com.damai.base.extensions.setCustomOnClickListener
+import com.damai.base.utils.Constants.TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG
 import com.damai.deloitteweather.R
 import com.damai.deloitteweather.databinding.ActivityMainBinding
+import com.damai.deloitteweather.navigations.PageNavigationApi
 import com.damai.deloitteweather.ui.main.adapter.SavedCityAdapter
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     //region Variables
     private lateinit var savedCityAdapter: SavedCityAdapter
+
+    private val pageNavigationApi: PageNavigationApi by inject()
     //endregion `Variables`
 
     override val layoutResource: Int = R.layout.activity_main
@@ -23,14 +28,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         lifecycleOwner = this@MainActivity
 
         with(rvSavedCities) {
-            savedCityAdapter = SavedCityAdapter()
+            savedCityAdapter = SavedCityAdapter { clickedItem ->
+                // TODO: Open detail page
+            }
             adapter = savedCityAdapter
         }
     }
 
     override fun ActivityMainBinding.setupListeners() {
         rlAddCityButton.setCustomOnClickListener {
-
+            pageNavigationApi.openAddNewCityBottomSheetDialog(
+                fragmentActivity = this@MainActivity,
+                tag = TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG
+            )
         }
     }
 

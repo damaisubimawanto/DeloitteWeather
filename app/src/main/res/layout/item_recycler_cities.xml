@@ -3,7 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.damai.domain.models.CityModel" />
+
+        <variable
+            name="isBottomLineVisible"
+            type="Boolean" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clItemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground">
@@ -13,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/dimen_8"
+            android:text="@{model.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/font_14"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,20 +40,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dimen_8"
+            android:text="@{model.state}"
             android:textColor="@color/black"
             android:textSize="@dimen/font_10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCityName"
-            tools:text="Indonesia" />
+            tools:text="Jawa Barat" />
 
         <View
             android:id="@+id/viewSeparatorBottom"
             android:layout_width="0dp"
             android:layout_height="@dimen/dimen_1"
             android:background="@color/light_grey"
+            android:visibility="@{isBottomLineVisible ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,10 +5,14 @@ import com.damai.base.networks.NetworkResource
 import com.damai.base.networks.Resource
 import com.damai.base.utils.Constants.API_KEY
 import com.damai.base.utils.Constants.API_METRIC_UNITS
+import com.damai.base.utils.Constants.QUERY_LIMIT
+import com.damai.base.utils.Constants.SUCCESS_CODE
 import com.damai.data.apiservices.HomeService
 import com.damai.data.mappers.CurrentWeatherResponseToCurrentWeatherModelMapper
+import com.damai.data.mappers.GeoLocationCityResponseToGeoLocationCityModelMapper
 import com.damai.domain.models.CurrentWeatherModel
 import com.damai.domain.models.CurrentWeatherRequestModel
+import com.damai.domain.models.GeoLocationCityModel
 import com.damai.domain.repositories.HomeRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -18,7 +22,8 @@ import kotlinx.coroutines.flow.Flow
 class HomeRepositoryImpl(
     private val homeService: HomeService,
     private val dispatcher: DispatcherProvider,
-    private val currentWeatherMapper: CurrentWeatherResponseToCurrentWeatherModelMapper
+    private val currentWeatherMapper: CurrentWeatherResponseToCurrentWeatherModelMapper,
+    private val geoLocationCityMapper: GeoLocationCityResponseToGeoLocationCityModelMapper
 ) : HomeRepository {
 
     override fun getCurrentWeather(
@@ -34,9 +39,26 @@ class HomeRepositoryImpl(
                     longitude = requestModel.longitude,
                     units = API_METRIC_UNITS
                 )
-                return currentWeatherMapper.map(response).also {
-                    it.id = requestModel.id
-                }
+                return currentWeatherMapper.map(response)
+            }
+        }.asFlow()
+    }
+
+    override fun getGeoLocationCity(cityName: String): Flow<Resource<GeoLocationCityModel>> {
+        return object : NetworkResource<GeoLocationCityModel>(
+            dispatcherProvider = dispatcher
+        ) {
+            override suspend fun remoteFetch(): GeoLocationCityModel {
+                val response = homeService.getGeoLocationCity(
+                    appId = API_KEY,
+                    query = cityName,
+                    limit = QUERY_LIMIT
+                )
+                return response.firstOrNull()?.let { geoLocationCity ->
+                    geoLocationCityMapper.map(value = geoLocationCity).also {
+                        it.status = SUCCESS_CODE
+                    }
+                } ?: geoLocationCityMapper.generateEmptyModel()
             }
         }.asFlow()
     }

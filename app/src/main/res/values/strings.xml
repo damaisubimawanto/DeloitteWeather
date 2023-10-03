@@ -4,4 +4,5 @@
     <string name="weather_text">Weather</string>
     
     <string name="empty_saved_city">Empty Saved City</string>
+    <string name="error_select_city">Error on getting the city information</string>
 </resources>

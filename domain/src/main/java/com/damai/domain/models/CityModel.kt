@@ -11,10 +11,14 @@ data class CityModel(
     var temperature: Int,
     var weatherType: String?,
     val latitude: Double,
-    val longitude: Double
+    val longitude: Double,
+    val state: String?
 )
 
 data class CurrentWeatherModel(
-    var id: Int? = null,
+    val cityModel: CityModel
+) : BaseModel()
+
+data class GeoLocationCityModel(
     val cityModel: CityModel
 ) : BaseModel()

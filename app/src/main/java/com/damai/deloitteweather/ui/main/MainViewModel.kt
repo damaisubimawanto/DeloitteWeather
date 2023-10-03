@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.damai.base.BaseViewModel
 import com.damai.base.coroutines.DispatcherProvider
 import com.damai.base.extensions.asLiveData
+import com.damai.base.extensions.getMutableList
 import com.damai.base.networks.Resource
 import com.damai.domain.models.CityModel
 import com.damai.domain.models.CurrentWeatherRequestModel
@@ -32,16 +33,17 @@ class MainViewModel(
     val emptySavedCityLiveData = _emptySavedCityLiveData.asLiveData()
     //endregion `Live Data`
 
-    init {
+    /*init {
         generateDummySavedCities()
-    }
+    }*/
 
     fun getCurrentWeatherCities() {
+        if (_savedCityListLiveData.value.isNullOrEmpty()) return
+
         viewModelScope.launch(dispatcher.io()) {
             val newCurrentWeatherList = requireNotNull(_savedCityListLiveData.value).map { cityModel ->
                 async {
                     val requestModel = CurrentWeatherRequestModel(
-                        id = cityModel.id,
                         latitude = cityModel.latitude,
                         longitude = cityModel.longitude
                     )
@@ -49,15 +51,12 @@ class MainViewModel(
                 }
             }.awaitAll()
 
-            var currentList = _savedCityListLiveData.value?.toMutableList()
-            if (currentList == null) {
-                currentList = mutableListOf()
-            }
+            val currentList = _savedCityListLiveData.getMutableList()
             newCurrentWeatherList.forEach { resource ->
                 when (resource) {
                     is Resource.Success -> {
                         val index = currentList.indexOfFirst {
-                            it.id == resource.model?.id
+                            it.id == resource.model?.cityModel?.id
                         }
                         if (index > -1) {
                             resource.model?.cityModel?.let {
@@ -73,7 +72,18 @@ class MainViewModel(
         }
     }
 
-    private fun generateDummySavedCities() {
+    fun addNewCity(cityModel: CityModel) {
+        val currentList = _savedCityListLiveData.getMutableList()
+        val existedIndex = currentList.indexOfFirst {
+            it.id == cityModel.id
+        }
+        if (existedIndex == -1) {
+            currentList.add(cityModel)
+            currentList.toList().let(_savedCityListLiveData::postValue)
+        }
+    }
+
+    /*private fun generateDummySavedCities() {
         val savedCity1 = CityModel(
             id = 1,
             name = "Bekasi",
@@ -123,5 +133,5 @@ class MainViewModel(
             savedCity5
         )
         dummyList.let(_savedCityListLiveData::setValue)
-    }
+    }*/
 }

@@ -20,7 +20,8 @@ class CurrentWeatherResponseToCurrentWeatherModelMapper : BaseMapper<CurrentWeat
                 temperature = value.main?.feelsLike.orZero().roundToInt(),
                 weatherType = value.weather?.firstOrNull()?.main,
                 latitude = value.coord?.lat.orZero(),
-                longitude = value.coord?.lon.orZero()
+                longitude = value.coord?.lon.orZero(),
+                state = null
             )
         ).also {
             it.status = value.cod

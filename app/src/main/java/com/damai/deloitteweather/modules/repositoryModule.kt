@@ -13,7 +13,8 @@ val repositoryModule = module {
         HomeRepositoryImpl(
             homeService = get(),
             dispatcher = get(),
-            currentWeatherMapper = get()
+            currentWeatherMapper = get(),
+            geoLocationCityMapper = get()
         )
     }
 }
