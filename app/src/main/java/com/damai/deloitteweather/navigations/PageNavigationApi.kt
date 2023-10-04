@@ -24,4 +24,11 @@ interface PageNavigationApi {
         temperature: Int,
         weatherIconUrl: String
     )
+
+    fun openRemoveCityBottomSheetDialog(
+        fragmentActivity: FragmentActivity,
+        tag: String,
+        cityId: Int,
+        cityName: String
+    )
 }

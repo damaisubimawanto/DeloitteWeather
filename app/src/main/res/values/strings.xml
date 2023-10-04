@@ -6,6 +6,9 @@
     <string name="this_week_text">This Week</string>
     <string name="max_text">max</string>
     <string name="min_text">min</string>
+    <string name="remove_city_confirmation" formatted="false">Remove (%s) city from the list?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     
     <string name="empty_saved_city">Empty Saved City</string>
     <string name="empty_search_city">Cannot find the city</string>

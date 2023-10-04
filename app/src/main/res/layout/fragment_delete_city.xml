@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dimen_8">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRemoveCityText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/dimen_16"
+            android:text="@string/remove_city_confirmation"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_16"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightPadding"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnYes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_bg_red_rounded"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/yes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_14"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightPadding"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toBottomOf="@id/tvRemoveCityText" />
+
+        <Space
+            android:id="@+id/spaceBetweenYesAndNoButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dimen_8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnYes" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="@string/no"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_14"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRightPadding"
+            app:layout_constraintStart_toEndOf="@+id/guidelineLeftPadding"
+            app:layout_constraintTop_toBottomOf="@id/spaceBetweenYesAndNoButtons" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLeftPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/dimen_8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRightPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/dimen_8" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

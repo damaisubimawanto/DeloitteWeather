@@ -14,7 +14,7 @@ import com.damai.domain.models.CityModel
  * Created by damai007 on 02/October/2023
  */
 class SavedCityAdapter(
-    private val onClicked: (CityModel) -> Unit
+    private val onClicked: (data: CityModel, isLongClick: Boolean) -> Unit
 ) : ListAdapter<CityModel, SavedCityAdapter.SavedCityVH>(
     SavedCityComparator
 ) {
@@ -49,7 +49,11 @@ class SavedCityAdapter(
                 }
 
                 clItemView.setCustomOnClickListener {
-                    onClicked.invoke(data)
+                    onClicked.invoke(data, false)
+                }
+                clItemView.setOnLongClickListener {
+                    onClicked.invoke(data, true)
+                    return@setOnLongClickListener true
                 }
             }
         }

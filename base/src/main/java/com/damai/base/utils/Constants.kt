@@ -25,6 +25,7 @@ object Constants {
     const val API_METRIC_UNITS = "metric"
 
     const val ARGS_CITY_NAME = "argsCityName"
+    const val ARGS_CITY_ID = "argsCityId"
     const val ARGS_LATITUDE = "argsLatitude"
     const val ARGS_LONGITUDE = "argsLongitude"
     const val ARGS_TEMPERATURE = "argsTemperature"

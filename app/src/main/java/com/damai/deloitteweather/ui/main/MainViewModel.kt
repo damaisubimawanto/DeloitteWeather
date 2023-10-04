@@ -94,4 +94,19 @@ class MainViewModel(
             _emptySavedCityLiveData.value = false
         }
     }
+
+    fun removeCity(cityId: Int) {
+        val currentList = _savedCityListLiveData.getMutableList()
+        val existedIndex = currentList.indexOfFirst {
+            it.id == cityId
+        }
+        if (existedIndex > -1) {
+            currentList.removeAt(existedIndex)
+            currentList.toList().let(_savedCityListLiveData::postValue)
+
+            if (currentList.isEmpty()) {
+                _emptySavedCityLiveData.value = true
+            }
+        }
+    }
 }

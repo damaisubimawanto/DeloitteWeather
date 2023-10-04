@@ -36,7 +36,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         lifecycleOwner = this@MainActivity
 
         with(rvSavedCities) {
-            savedCityAdapter = SavedCityAdapter { clickedItem ->
+            savedCityAdapter = SavedCityAdapter { clickedItem, isLongClick ->
+                if (isLongClick) {
+                    pageNavigationApi.openRemoveCityBottomSheetDialog(
+                        fragmentActivity = this@MainActivity,
+                        tag = "DeleteCityBottomSheetDialog",
+                        cityId = clickedItem.id,
+                        cityName = clickedItem.name.orEmpty()
+                    )
+                    return@SavedCityAdapter
+                }
                 pageNavigationApi.navigateToWeatherDetailActivity(
                     context = context,
                     launcher = activityLauncher,
