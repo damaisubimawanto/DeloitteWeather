@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.damai.base.BaseViewModel
 import com.damai.base.coroutines.DispatcherProvider
 import com.damai.base.extensions.asLiveData
+import com.damai.base.extensions.orFalse
 import com.damai.base.networks.Resource
 import com.damai.base.utils.Event
 import com.damai.deloitteweather.R
@@ -36,9 +37,16 @@ class AddNewCityViewModel(
     private val _selectedCityLiveData = MutableLiveData<Event<CityModel>>()
     val selectedCityLiveData = _selectedCityLiveData.asLiveData()
 
+    private val _emptyCityLiveData = MutableLiveData<Event<Boolean>>()
+    val emptyCityLiveData = _emptyCityLiveData.asLiveData()
+
     private val _errorSelectCityLiveData = MutableLiveData<Event<Boolean>>()
     val errorSelectCityLiveData = _errorSelectCityLiveData.asLiveData()
     //endregion `Live Data`
+
+    //region Variables
+    private val tempCityList = mutableListOf<CityModel>()
+    //endregion `Variables`
 
     fun getGeoLocationCities() {
         viewModelScope.launch(dispatcher.io()) {
@@ -51,16 +59,16 @@ class AddNewCityViewModel(
                 }
             }.awaitAll()
 
-            val newCityList = mutableListOf<CityModel>()
+            tempCityList.clear()
             geoLocationCityList.forEach { resource ->
                 when (resource) {
                     is Resource.Success -> {
-                        resource.model?.cityModel?.let(newCityList::add)
+                        resource.model?.cityModel?.let(tempCityList::add)
                     }
                     is Resource.Error -> Unit
                 }
             }
-            newCityList.let(_cityListLiveData::postValue)
+            tempCityList.let(_cityListLiveData::postValue)
         }
     }
 
@@ -85,5 +93,32 @@ class AddNewCityViewModel(
                 }
             }
         }
+    }
+
+    fun searchCity(query: String) {
+        if (query.isBlank()) {
+            Event(false).let(_emptyCityLiveData::postValue)
+            tempCityList.let(_cityListLiveData::postValue)
+            return
+        }
+
+        val searchedCityList = tempCityList.filter {
+            when {
+                query.length < 3 -> {
+                    it.name?.startsWith(prefix = query, ignoreCase = true).orFalse()
+                }
+                else -> {
+                    it.name?.contains(other = query, ignoreCase = true).orFalse()
+                }
+            }
+        }
+
+        if (searchedCityList.isEmpty()) {
+            Event(true).let(_emptyCityLiveData::postValue)
+            return
+        }
+
+        Event(false).let(_emptyCityLiveData::postValue)
+        searchedCityList.let(_cityListLiveData::postValue)
     }
 }

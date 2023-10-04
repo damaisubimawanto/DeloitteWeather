@@ -43,6 +43,8 @@
             android:background="@drawable/shape_bg_search_rounded"
             android:drawablePadding="@dimen/dimen_8"
             android:drawableStart="@drawable/ic_search_24px"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
             android:paddingHorizontal="@dimen/dimen_8"
             android:textColor="@color/black"
             android:textSize="@dimen/font_14"
@@ -79,6 +81,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewSeparatorBottom"
             tools:listitem="@layout/item_recycler_cities" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvEmptySearchCityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_20"
+            android:text="@string/empty_search_city"
+            android:textColor="@color/grey_bg"
+            android:textSize="@dimen/font_14"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSeparatorBottom"
+            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLeftPadding"

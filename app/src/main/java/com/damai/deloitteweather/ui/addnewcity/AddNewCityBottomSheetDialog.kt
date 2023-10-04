@@ -1,9 +1,14 @@
 package com.damai.deloitteweather.ui.addnewcity
 
+import android.view.inputmethod.EditorInfo
 import com.damai.base.BaseBottomSheetDialogFragment
+import com.damai.base.extensions.addOnTextChanged
 import com.damai.base.extensions.getScreenHeight
+import com.damai.base.extensions.gone
+import com.damai.base.extensions.hideKeyboard
 import com.damai.base.extensions.observe
 import com.damai.base.extensions.showShortToast
+import com.damai.base.extensions.visible
 import com.damai.base.utils.EventObserver
 import com.damai.deloitteweather.R
 import com.damai.deloitteweather.databinding.FragmentAddNewCityBinding
@@ -46,7 +51,18 @@ class AddNewCityBottomSheetDialog : BaseBottomSheetDialogFragment<FragmentAddNew
     }
 
     override fun FragmentAddNewCityBinding.setupListeners() {
-        // TODO("Not yet implemented")
+        etSearchCity.addOnTextChanged { query ->
+            viewModel.searchCity(query = query)
+        }
+        etSearchCity.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    requireActivity().hideKeyboard(view = etSearchCity)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun FragmentAddNewCityBinding.setupObservers() {
@@ -59,8 +75,20 @@ class AddNewCityBottomSheetDialog : BaseBottomSheetDialogFragment<FragmentAddNew
             dialog?.dismiss()
         })
 
-        observe(viewModel.errorSelectCityLiveData, EventObserver {
-            context?.showShortToast(message = getString(R.string.error_select_city))
+        observe(viewModel.emptyCityLiveData, EventObserver { isEmpty ->
+            if (isEmpty) {
+                tvEmptySearchCityText.visible()
+                rvCities.gone()
+            } else {
+                tvEmptySearchCityText.gone()
+                rvCities.visible()
+            }
+        })
+
+        observe(viewModel.errorSelectCityLiveData, EventObserver { isError ->
+            if (isError) {
+                context?.showShortToast(message = getString(R.string.error_select_city))
+            }
         })
     }
 
