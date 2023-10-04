@@ -104,6 +104,10 @@ class MainViewModel(
             currentList.removeAt(existedIndex)
             currentList.toList().let(_savedCityListLiveData::postValue)
 
+            viewModelScope.launch(dispatcher.io()) {
+                cityDao.delete(cityId = cityId)
+            }
+
             if (currentList.isEmpty()) {
                 _emptySavedCityLiveData.value = true
             }
