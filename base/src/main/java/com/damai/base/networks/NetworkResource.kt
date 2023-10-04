@@ -21,10 +21,10 @@ abstract class NetworkResource<T: BaseModel>(
 
             when (remoteResponse) {
                 is ResultWrapper.Success -> {
-                    emit(Resource.Success(model = remoteResponse.value))
                     if (shouldSaveToLocal()) {
                         saveLocal(data = remoteResponse.value)
                     }
+                    emit(Resource.Success(model = remoteResponse.value))
                 }
                 is ResultWrapper.GenericError -> {
                     emit(Resource.Error(errorMessage = remoteResponse.message))
@@ -42,10 +42,10 @@ abstract class NetworkResource<T: BaseModel>(
 
                 when (remoteResponse) {
                     is ResultWrapper.Success -> {
-                        emit(Resource.Success(model = remoteResponse.value))
                         if (shouldSaveToLocal()) {
                             saveLocal(data = remoteResponse.value)
                         }
+                        emit(Resource.Success(model = remoteResponse.value))
                     }
                     is ResultWrapper.GenericError -> {
                         emit(Resource.Error(errorMessage = remoteResponse.message))

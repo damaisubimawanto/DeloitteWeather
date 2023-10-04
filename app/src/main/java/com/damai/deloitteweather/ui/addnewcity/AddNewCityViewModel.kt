@@ -55,7 +55,7 @@ class AddNewCityViewModel(
     fun getGeoLocationCities() {
         viewModelScope.launch(dispatcher.io()) {
             val localGeoLocationCityList = geoCityDao.getAllSavedCities()
-            if (localGeoLocationCityList.isEmpty().not()) {
+            if (localGeoLocationCityList.isNotEmpty()) {
                 tempCityList.clear()
                 geoCityEntityToModelMapper.map(localGeoLocationCityList).let {
                     tempCityList.addAll(it)
