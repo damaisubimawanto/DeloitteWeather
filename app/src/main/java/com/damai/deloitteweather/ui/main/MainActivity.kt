@@ -5,6 +5,7 @@ import com.damai.base.BaseActivity
 import com.damai.base.extensions.observe
 import com.damai.base.extensions.setCustomOnClickListener
 import com.damai.base.utils.Constants.TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG
+import com.damai.base.utils.Constants.TAG_DELETE_CITY_BOTTOMSHEET_DIALOG
 import com.damai.base.utils.Constants.WEATHER_ICON_HEAD
 import com.damai.base.utils.Constants.WEATHER_ICON_TAIL_2X
 import com.damai.deloitteweather.R
@@ -40,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 if (isLongClick) {
                     pageNavigationApi.openRemoveCityBottomSheetDialog(
                         fragmentActivity = this@MainActivity,
-                        tag = "DeleteCityBottomSheetDialog",
+                        tag = TAG_DELETE_CITY_BOTTOMSHEET_DIALOG,
                         cityId = clickedItem.id,
                         cityName = clickedItem.name.orEmpty()
                     )

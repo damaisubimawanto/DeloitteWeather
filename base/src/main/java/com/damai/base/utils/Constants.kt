@@ -32,4 +32,5 @@ object Constants {
     const val ARGS_WEATHER_ICON_URL = "argsWeatherIconUrl"
 
     const val TAG_ADD_NEW_CITY_BOTTOMSHEET_DIALOG = "AddNewCityBottomSheetDialog"
+    const val TAG_DELETE_CITY_BOTTOMSHEET_DIALOG = "DeleteCityBottomSheetDialog"
 }
