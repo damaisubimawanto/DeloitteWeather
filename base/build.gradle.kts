@@ -59,6 +59,8 @@ dependencies {
     api("com.squareup.retrofit2:retrofit:2.9.0")
     api("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    api("org.slf4j:slf4j-nop:2.0.7")
+
     ksp("com.github.bumptech.glide:ksp:4.15.1")
 
     androidTestApi("androidx.test.espresso:espresso-core:3.5.1")
