@@ -6,6 +6,7 @@ import com.damai.base.networks.NetworkResource
 import com.damai.base.networks.Resource
 import com.damai.base.utils.Constants.API_KEY
 import com.damai.base.utils.Constants.API_METRIC_UNITS
+import com.damai.base.utils.Constants.CACHE_DAYS
 import com.damai.base.utils.Constants.QUERY_LIMIT
 import com.damai.base.utils.Constants.SUCCESS_CODE
 import com.damai.data.apiservices.HomeService
@@ -68,7 +69,7 @@ class HomeRepositoryImpl(
                     longitude = requestModel.longitude
                 )
                 return cityEntity?.let {
-                    if (it.latestUpdated.isCacheValid(days = 3)) {
+                    if (it.latestUpdated.isCacheValid(days = CACHE_DAYS)) {
                         CurrentWeatherModel(
                             cityModel = cityEntityToModelMapper.map(it)
                         )
@@ -108,7 +109,7 @@ class HomeRepositoryImpl(
             override suspend fun localFetch(): GeoLocationCityModel? {
                 val geoCityEntity = geoCityDao.getGeoCity(cityName = cityName)
                 return geoCityEntity?.let {
-                    if (it.latestUpdated.isCacheValid(days = 3)) {
+                    if (it.latestUpdated.isCacheValid(days = CACHE_DAYS)) {
                         GeoLocationCityModel(
                             cityModel = geoCityEntityToModelMapper.map(it)
                         )

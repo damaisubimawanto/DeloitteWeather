@@ -12,6 +12,7 @@ object Constants {
     const val ROOM_DATABASE_NAME = "deloitte-weather-database"
     const val TIMEOUT = 60L
     const val QUERY_LIMIT = 5
+    const val CACHE_DAYS = 3    // days
 
     const val SUCCESS_CODE = 200
     const val EMPTY_CODE = 404
