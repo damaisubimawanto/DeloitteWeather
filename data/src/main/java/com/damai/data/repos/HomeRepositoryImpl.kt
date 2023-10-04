@@ -8,9 +8,12 @@ import com.damai.base.utils.Constants.API_METRIC_UNITS
 import com.damai.base.utils.Constants.QUERY_LIMIT
 import com.damai.base.utils.Constants.SUCCESS_CODE
 import com.damai.data.apiservices.HomeService
+import com.damai.data.mappers.CityEntityToCityModelMapper
+import com.damai.data.mappers.CityModelToCityEntityMapper
 import com.damai.data.mappers.CurrentWeatherResponseToCurrentWeatherModelMapper
 import com.damai.data.mappers.ForecastResponseToForecastModelMapper
 import com.damai.data.mappers.GeoLocationCityResponseToGeoLocationCityModelMapper
+import com.damai.domain.daos.CityDao
 import com.damai.domain.models.WeatherForecastModel
 import com.damai.domain.models.CurrentWeatherModel
 import com.damai.domain.models.CurrentWeatherRequestModel
@@ -24,9 +27,12 @@ import kotlinx.coroutines.flow.Flow
 class HomeRepositoryImpl(
     private val homeService: HomeService,
     private val dispatcher: DispatcherProvider,
+    private val cityDao: CityDao,
     private val currentWeatherMapper: CurrentWeatherResponseToCurrentWeatherModelMapper,
     private val geoLocationCityMapper: GeoLocationCityResponseToGeoLocationCityModelMapper,
-    private val forecastMapper: ForecastResponseToForecastModelMapper
+    private val forecastMapper: ForecastResponseToForecastModelMapper,
+    private val cityEntityToModelMapper: CityEntityToCityModelMapper,
+    private val cityModelToEntityMapper: CityModelToCityEntityMapper
 ) : HomeRepository {
 
     override fun getCurrentWeather(
@@ -43,6 +49,26 @@ class HomeRepositoryImpl(
                     units = API_METRIC_UNITS
                 )
                 return currentWeatherMapper.map(response)
+            }
+
+            override fun shouldFetchFromRemote(): Boolean = false
+
+            override fun shouldSaveToLocal(): Boolean = true
+
+            override suspend fun localFetch(): CurrentWeatherModel? {
+                val cityEntity = cityDao.getSavedCity(
+                    latitude = requestModel.latitude,
+                    longitude = requestModel.longitude
+                )
+                return cityEntity?.let {
+                    CurrentWeatherModel(
+                        cityModel = cityEntityToModelMapper.map(it)
+                    )
+                }
+            }
+
+            override suspend fun saveLocal(data: CurrentWeatherModel) {
+                cityDao.insert(cityEntity = cityModelToEntityMapper.map(data.cityModel))
             }
         }.asFlow()
     }

@@ -46,6 +46,8 @@ dependencies {
     api("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
     api("androidx.navigation:navigation-fragment-ktx:2.3.5")
+    api("androidx.room:room-ktx:2.5.2")
+    api("androidx.room:room-runtime:2.5.2")
     api("com.google.android.material:material:1.9.0")
 
     api("com.github.bumptech.glide:glide:4.15.1")

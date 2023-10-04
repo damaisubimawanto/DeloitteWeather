@@ -9,6 +9,7 @@ object Constants {
     const val WEATHER_ICON_HEAD = "https://openweathermap.org/img/wn/"
     const val WEATHER_ICON_TAIL_1X = ".png"
     const val WEATHER_ICON_TAIL_2X = "@2x.png"
+    const val ROOM_DATABASE_NAME = "deloitte-weather-database"
     const val TIMEOUT = 60L
     const val QUERY_LIMIT = 5
 

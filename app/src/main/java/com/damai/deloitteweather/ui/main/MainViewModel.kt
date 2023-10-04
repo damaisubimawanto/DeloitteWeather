@@ -8,6 +8,8 @@ import com.damai.base.coroutines.DispatcherProvider
 import com.damai.base.extensions.asLiveData
 import com.damai.base.extensions.getMutableList
 import com.damai.base.networks.Resource
+import com.damai.data.mappers.CityEntityToCityModelMapper
+import com.damai.domain.daos.CityDao
 import com.damai.domain.models.CityModel
 import com.damai.domain.models.CurrentWeatherRequestModel
 import com.damai.domain.usecases.GetCurrentWeatherUseCase
@@ -22,7 +24,9 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     app: Application,
     private val dispatcher: DispatcherProvider,
-    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase
+    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
+    private val cityDao: CityDao,
+    private val cityEntityToModelMapper: CityEntityToCityModelMapper
 ) : BaseViewModel(app = app) {
 
     //region Live Data
@@ -34,12 +38,19 @@ class MainViewModel(
     //endregion `Live Data`
 
     fun getCurrentWeatherCities() {
-        if (_savedCityListLiveData.value.isNullOrEmpty()) {
-            _emptySavedCityLiveData.postValue(true)
-            return
-        }
-
         viewModelScope.launch(dispatcher.io()) {
+            if (_savedCityListLiveData.value.isNullOrEmpty()) {
+                val localSavedCityList = cityDao.getAllSavedCities()
+                if (localSavedCityList.isEmpty()) {
+                    _emptySavedCityLiveData.postValue(true)
+                } else {
+                    cityEntityToModelMapper.map(localSavedCityList).let(
+                        _savedCityListLiveData::postValue
+                    )
+                }
+                return@launch
+            }
+
             val newCurrentWeatherList = requireNotNull(_savedCityListLiveData.value).map { cityModel ->
                 async {
                     val requestModel = CurrentWeatherRequestModel(

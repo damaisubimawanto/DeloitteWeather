@@ -13,9 +13,12 @@ val repositoryModule = module {
         HomeRepositoryImpl(
             homeService = get(),
             dispatcher = get(),
+            cityDao = get(),
             currentWeatherMapper = get(),
             geoLocationCityMapper = get(),
-            forecastMapper = get()
+            forecastMapper = get(),
+            cityEntityToModelMapper = get(),
+            cityModelToEntityMapper = get()
         )
     }
 }

@@ -22,6 +22,9 @@ abstract class NetworkResource<T: BaseModel>(
             when (remoteResponse) {
                 is ResultWrapper.Success -> {
                     emit(Resource.Success(model = remoteResponse.value))
+                    if (shouldSaveToLocal()) {
+                        saveLocal(data = remoteResponse.value)
+                    }
                 }
                 is ResultWrapper.GenericError -> {
                     emit(Resource.Error(errorMessage = remoteResponse.message))
@@ -32,7 +35,25 @@ abstract class NetworkResource<T: BaseModel>(
             val localCache = withContext(dispatcherProvider.io()) {
                 localFetch()
             }
-            emit(Resource.Success(model = localCache))
+            if (localCache == null) {
+                val remoteResponse = safeApiCall(dispatcher = dispatcherProvider.io()) {
+                    remoteFetch()
+                }
+
+                when (remoteResponse) {
+                    is ResultWrapper.Success -> {
+                        emit(Resource.Success(model = remoteResponse.value))
+                        if (shouldSaveToLocal()) {
+                            saveLocal(data = remoteResponse.value)
+                        }
+                    }
+                    is ResultWrapper.GenericError -> {
+                        emit(Resource.Error(errorMessage = remoteResponse.message))
+                    }
+                }
+            } else {
+                emit(Resource.Success(model = localCache))
+            }
         }
     }
 
@@ -40,5 +61,9 @@ abstract class NetworkResource<T: BaseModel>(
 
     open suspend fun localFetch(): T? = null
 
+    open suspend fun saveLocal(data: T) {}
+
     open fun shouldFetchFromRemote() = true
+
+    open fun shouldSaveToLocal() = false
 }

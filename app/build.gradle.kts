@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -51,6 +52,8 @@ dependencies {
     implementation(project(":base"))
     implementation(project(":data"))
     implementation(project(":domain"))
+
+    ksp("androidx.room:room-compiler:2.5.2")
 
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("androidx.test.espresso:espresso-core:3.5.1")

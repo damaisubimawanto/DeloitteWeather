@@ -9,6 +9,7 @@ val allModules = listOf(
     networkModule,
     pageNavigationModule,
     repositoryModule,
+    roomModule,
     useCaseModule,
     viewModelModule
 )

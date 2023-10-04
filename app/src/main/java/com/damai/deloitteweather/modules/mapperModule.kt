@@ -1,5 +1,7 @@
 package com.damai.deloitteweather.modules
 
+import com.damai.data.mappers.CityEntityToCityModelMapper
+import com.damai.data.mappers.CityModelToCityEntityMapper
 import com.damai.data.mappers.CurrentWeatherResponseToCurrentWeatherModelMapper
 import com.damai.data.mappers.ForecastResponseToForecastModelMapper
 import com.damai.data.mappers.GeoLocationCityResponseToGeoLocationCityModelMapper
@@ -18,5 +20,11 @@ val mapperModule = module {
     }
     factory {
         ForecastResponseToForecastModelMapper()
+    }
+    factory {
+        CityEntityToCityModelMapper()
+    }
+    factory {
+        CityModelToCityEntityMapper()
     }
 }
