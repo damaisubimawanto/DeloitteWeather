@@ -26,7 +26,9 @@ val viewModelModule = module {
             app = androidApplication(),
             dispatcher = get(),
             getGeoLocationCityUseCase = get(),
-            getCurrentWeatherUseCase = get()
+            getCurrentWeatherUseCase = get(),
+            geoCityDao = get(),
+            geoCityEntityToModelMapper = get()
         )
     }
     viewModel {

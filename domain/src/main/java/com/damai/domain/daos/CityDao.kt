@@ -23,4 +23,7 @@ interface CityDao {
         latitude: Double,
         longitude: Double
     ): CityEntity?
+
+    @Query("SELECT * FROM city_entity WHERE name = :cityName")
+    suspend fun getSavedCityFromName(cityName: String): CityEntity?
 }

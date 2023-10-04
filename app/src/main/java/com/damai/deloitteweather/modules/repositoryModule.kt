@@ -14,11 +14,14 @@ val repositoryModule = module {
             homeService = get(),
             dispatcher = get(),
             cityDao = get(),
+            geoCityDao = get(),
             currentWeatherMapper = get(),
             geoLocationCityMapper = get(),
             forecastMapper = get(),
             cityEntityToModelMapper = get(),
-            cityModelToEntityMapper = get()
+            cityModelToEntityMapper = get(),
+            geoCityEntityToModelMapper = get(),
+            geoCityModelToEntityMapper = get()
         )
     }
 }

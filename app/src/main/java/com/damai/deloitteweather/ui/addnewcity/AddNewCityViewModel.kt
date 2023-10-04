@@ -9,8 +9,10 @@ import com.damai.base.extensions.asLiveData
 import com.damai.base.extensions.orFalse
 import com.damai.base.networks.Resource
 import com.damai.base.utils.Event
+import com.damai.data.mappers.GeoCityEntityToCityModelMapper
 import com.damai.deloitteweather.R
 import com.damai.deloitteweather.application.MyApplication
+import com.damai.domain.daos.GeoCityDao
 import com.damai.domain.models.CityModel
 import com.damai.domain.models.CurrentWeatherRequestModel
 import com.damai.domain.usecases.GetCurrentWeatherUseCase
@@ -27,7 +29,9 @@ class AddNewCityViewModel(
     app: Application,
     private val dispatcher: DispatcherProvider,
     private val getGeoLocationCityUseCase: GetGeoLocationCityUseCase,
-    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase
+    private val getCurrentWeatherUseCase: GetCurrentWeatherUseCase,
+    private val geoCityDao: GeoCityDao,
+    private val geoCityEntityToModelMapper: GeoCityEntityToCityModelMapper
 ) : BaseViewModel(app = app) {
 
     //region Live Data
@@ -50,6 +54,16 @@ class AddNewCityViewModel(
 
     fun getGeoLocationCities() {
         viewModelScope.launch(dispatcher.io()) {
+            val localGeoLocationCityList = geoCityDao.getAllSavedCities()
+            if (localGeoLocationCityList.isEmpty().not()) {
+                tempCityList.clear()
+                geoCityEntityToModelMapper.map(localGeoLocationCityList).let {
+                    tempCityList.addAll(it)
+                    _cityListLiveData.postValue(it)
+                }
+                return@launch
+            }
+
             val cityList = getApplication<MyApplication>().resources.getStringArray(
                 R.array.all_cities
             ).toList()

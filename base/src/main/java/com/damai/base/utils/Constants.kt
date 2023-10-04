@@ -16,6 +16,7 @@ object Constants {
     const val SUCCESS_CODE = 200
     const val EMPTY_CODE = 404
     const val GLIDE_CROSS_FADE = 300   // milliseconds
+    const val ONE_DAY_IN_MILLISECONDS = 3_600_000L
 
     const val API_VERSION_1 = "1.0"
     const val API_VERSION_2_POINT_5 = "2.5"

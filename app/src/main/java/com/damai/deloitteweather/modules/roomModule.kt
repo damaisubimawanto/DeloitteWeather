@@ -13,7 +13,11 @@ val roomModule = module {
         AppDatabase.buildDatabase(application = androidApplication())
     }
 
-    factory<CityDao> {
+    factory {
         get<AppDatabase>().cityDao()
+    }
+
+    factory {
+        get<AppDatabase>().geoCityDao()
     }
 }
