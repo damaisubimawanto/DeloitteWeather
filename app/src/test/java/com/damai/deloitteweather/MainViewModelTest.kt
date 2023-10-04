@@ -47,6 +47,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 import retrofit2.Response
 import java.util.concurrent.CountDownLatch
 
@@ -56,6 +57,7 @@ import java.util.concurrent.CountDownLatch
 @RunWith(AndroidJUnit4::class)
 @ExtendWith(InstantExecutorExtension::class)
 @MediumTest
+@Config(manifest = Config.NONE)
 class MainViewModelTest {
 
     @get:Rule
@@ -99,7 +101,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `get current weather at first install should be empty and update empty live data`() {
+    fun `get current weather at first install should be empty and update empty live data`() = runBlocking {
         viewModel.getCurrentWeatherCities()
 
         verify(exactly = 1) {
