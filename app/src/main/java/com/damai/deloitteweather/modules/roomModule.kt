@@ -1,7 +1,6 @@
 package com.damai.deloitteweather.modules
 
 import com.damai.deloitteweather.application.AppDatabase
-import com.damai.domain.daos.CityDao
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
