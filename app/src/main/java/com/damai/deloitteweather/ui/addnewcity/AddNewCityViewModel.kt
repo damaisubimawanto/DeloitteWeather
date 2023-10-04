@@ -82,7 +82,9 @@ class AddNewCityViewModel(
                     is Resource.Error -> Unit
                 }
             }
-            tempCityList.let(_cityListLiveData::postValue)
+            tempCityList.sortedBy {
+                it.name
+            }.let(_cityListLiveData::postValue)
         }
     }
 

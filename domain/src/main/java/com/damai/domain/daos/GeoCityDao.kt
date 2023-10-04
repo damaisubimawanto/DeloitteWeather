@@ -15,7 +15,7 @@ interface GeoCityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(geoCityEntity: GeoCityEntity)
 
-    @Query("SELECT * FROM geo_city_entity ORDER BY id ASC")
+    @Query("SELECT * FROM geo_city_entity ORDER BY name ASC")
     suspend fun getAllSavedCities(): List<GeoCityEntity>
 
     @Query("SELECT * FROM geo_city_entity WHERE name = :cityName")
